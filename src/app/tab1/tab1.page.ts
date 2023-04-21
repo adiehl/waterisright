@@ -79,25 +79,16 @@ export class Tab1Page {
   }
 
   async share() {
-    const canvas = document.createElementcanvas'(');
+    const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     const image = new Image();
 
-    image.onload = () => {
+    image.onload = async () => {
       canvas.width = image.width;
       canvas.height = image.height;
       if (context) {
         // Draw the original image on the canvas
         context.drawImage(image, 0, 0, image.width, image.height);
-
-        // Load the watermark image and draw it on the canvas
-        const watermark = new Image();
-        watermark.src = 'assets/watermark.png';
-        watermark.onload = async () => {
-          const scale = 0.1;
-          const x = canvas.width - watermark.width * scale;
-          const y = canvas.height - watermark.height * scale;
-          context.drawImage(watermark, x, y, watermark.width * scale, watermark.height * scale);
 
           // Share the image with the watermark on Instagram
           this.socialSharing.shareViaInstagram(
@@ -105,7 +96,6 @@ export class Tab1Page {
             canvas.toDataURL('image/png'), // Image with watermark
           );
           await this.addTransaction();
-        };
       }
     };
     if (this.picture) {
