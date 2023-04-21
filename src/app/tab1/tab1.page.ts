@@ -1,22 +1,36 @@
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { CommonModule } from '@angular/common';
-import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
+import { DatabaseService } from '../database.service';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+registerLocaleData(localeDe);
 
+interface Transaction {
+  date: Date;
+  description: string;
+  amount: number;
+}
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
   standalone: true,
-  imports: [IonicModule, ExploreContainerComponent, CommonModule],
+  imports: [IonicModule, CommonModule],
   providers: [SocialSharing]
 })
 export class Tab1Page {
   public picture: string | null = null;
+  public transactions: Transaction[] = [];
+  public endSum: number = 0;
 
-  constructor(private socialSharing: SocialSharing) {}
+  constructor(
+    private socialSharing: SocialSharing,
+    private database: DatabaseService,
+    ) {}
 
   async takePicture() {
     const image = await Camera.getPhoto({
@@ -103,4 +117,18 @@ export class Tab1Page {
     this.picture = null;
   }
 
+
+  async ionViewWillEnter() {
+    this.transactions = await this.database.getAllTransactions();
+    this.endSum = await this.database.getEndSum();
+  }
+
+  async addTransaction() {
+    const date = new Date();
+    const description = 'Instafoto 20 cent';
+    const amount = -0.2;
+    await this.database.addTransaction(date, description, amount);
+    this.transactions = await this.database.getAllTransactions();
+    this.endSum = await this.database.getEndSum();
+  }
 }

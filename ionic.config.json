@@ -1,5 +1,7 @@
 {
-  "name": "wir",
-  "integrations": {},
+  "name": "WaterIsRight",
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

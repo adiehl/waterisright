@@ -1,22 +1,37 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title> Share your drink! </ion-title>
+    <ion-title> Share your drink! ({{ endSum | currency:'EUR' }}) </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <img src="assets/logo.png" alt="Logo" class="logo" style="max-height: 20%" />
-  <img
-    src="assets/placeholder.png"
-    alt="Placeholder"
-    class="picture placeholder"
-    *ngIf="!picture"
-  />
-  <img [src]="picture" alt="Picture" class="picture" *ngIf="picture" />
-  <div class="button-container" *ngIf="!picture">
-    <ion-button (click)="takePicture()">Take Picture</ion-button>
-  </div>
-  <div class="button-container" *ngIf="picture">
-    <ion-button (click)="share()">Share</ion-button>
-    <ion-button (click)="clear()">Clear</ion-button>
+
+<ion-content class="content">
+  <div class="grid-container">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="Logo" class="logo" />
+    </div>
+
+    <div class="image-container">
+      <img
+        src="assets/placeholder.png"
+        alt="Placeholder"
+        class="picture placeholder"
+        *ngIf="!picture"
+      />
+      <img [src]="picture" alt="Picture" class="picture" *ngIf="picture" />
+    </div>
+
+    <div class="button-container" *ngIf="!picture">
+      <ion-button
+        expand="block"
+        (click)="takePicture()"
+        [disabled]="endSum < 0.2"
+        >Take Picture</ion-button
+      >
+    </div>
+
+    <div class="button-container" *ngIf="picture">
+      <ion-button expand="block" (click)="share()">Share</ion-button>
+      <ion-button expand="block" (click)="clear()">Clear</ion-button>
+    </div>
   </div>
 </ion-content>
