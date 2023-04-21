@@ -8,11 +8,15 @@
   <img
     src="assets/placeholder.png"
     alt="Placeholder"
-    class="picture"
+    class="picture placeholder"
     *ngIf="!picture"
   />
   <img [src]="picture" alt="Picture" class="picture" *ngIf="picture" />
   <div class="button-container" *ngIf="!picture">
     <ion-button (click)="takePicture()">Take Picture</ion-button>
+  </div>
+  <div class="button-container" *ngIf="picture">
+    <ion-button (click)="share()">Share</ion-button>
+    <ion-button (click)="clear()">Clear</ion-button>
   </div>
 </ion-content>

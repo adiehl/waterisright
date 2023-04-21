@@ -1,0 +1,24 @@
+.logo {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.picture {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.placeholder {
+  opacity: 0.5;
+
+}

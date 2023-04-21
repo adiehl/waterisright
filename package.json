@@ -22,6 +22,7 @@
     "@capacitor/camera": "^4.1.4",
     "@capacitor/filesystem": "^4.1.4",
     "@capacitor/storage": "^1.2.5",
+    "@ionic-native/social-sharing": "^5.36.0",
     "@ionic/angular": "^7.0.0",
     "ionicons": "^7.0.0",
     "rxjs": "~7.5.0",
