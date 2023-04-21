@@ -78,8 +78,8 @@ export class Tab1Page {
     };
   }
 
-  share() {
-    const canvas = document.createElement('canvas');
+  async share() {
+    const canvas = document.createElementcanvas'(');
     const context = canvas.getContext('2d');
     const image = new Image();
 
@@ -93,7 +93,7 @@ export class Tab1Page {
         // Load the watermark image and draw it on the canvas
         const watermark = new Image();
         watermark.src = 'assets/watermark.png';
-        watermark.onload = () => {
+        watermark.onload = async () => {
           const scale = 0.1;
           const x = canvas.width - watermark.width * scale;
           const y = canvas.height - watermark.height * scale;
@@ -104,6 +104,7 @@ export class Tab1Page {
             'I shared 10 cent', // Caption
             canvas.toDataURL('image/png'), // Image with watermark
           );
+          await this.addTransaction();
         };
       }
     };
